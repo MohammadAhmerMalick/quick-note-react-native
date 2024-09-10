@@ -8,6 +8,7 @@ import type { FC } from 'react'
 import { Pressable, View } from 'react-native'
 import type { SvgProps } from 'react-native-svg'
 
+import useTheme from '@/hook/useTheme'
 import { TAILWIND } from '@/constants'
 import { FiFiMoonIcon, FiFiSunIcon } from '@/utils/icons'
 
@@ -16,20 +17,20 @@ interface Option {
   id: ColorSchemeName
 }
 const ThemeSelector = () => {
+  const { isLightTheme } = useTheme()
+  const { neutral } = TAILWIND
+
   const options: Option[] = [
     { id: 'light', Icon: FiFiSunIcon },
     { id: 'dark', Icon: FiFiMoonIcon },
   ]
 
   const pressableStyle = {
-    borderColor:
-      useColorScheme() === 'light'
-        ? TAILWIND.neutral[200]
-        : TAILWIND.neutral[600],
+    ...styles.pressable,
+    borderColor: isLightTheme ? neutral[200] : neutral[600],
   }
 
-  const iconStroke =
-    useColorScheme() === 'light' ? TAILWIND.neutral[600] : TAILWIND.neutral[200]
+  const iconStroke = isLightTheme ? neutral[600] : neutral[200]
 
   return (
     <View style={styles.view}>
@@ -38,8 +39,8 @@ const ThemeSelector = () => {
           useColorScheme() !== id && (
             <Pressable
               key={id}
+              style={pressableStyle}
               onPress={() => Appearance.setColorScheme(id)}
-              style={{ ...styles.pressable, ...pressableStyle }}
             >
               <Icon width={20} height={20} stroke={iconStroke} />
             </Pressable>

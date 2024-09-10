@@ -3,27 +3,22 @@ import { StyleSheet, View } from 'react-native'
 import { useColorScheme, useWindowDimensions } from 'react-native'
 import { SafeAreaView as SafeArea } from 'react-native-safe-area-context'
 
+import NavLInks from '@/components/NavLInks'
 import { PRIAMRY_COLOR, TAILWIND } from '@/constants'
 import ThemeSelector from '@/components/common/ThemeSelector'
-
-const themedStyle = {
-  light: {
-    backgroundColor: TAILWIND.neutral[50],
-    color: TAILWIND.black,
-  },
-  dark: {
-    backgroundColor: TAILWIND.neutral[950],
-    color: TAILWIND.white,
-  },
-}
 
 const SafeAreaView = ({ children }: { children: React.ReactNode }) => {
   const { height } = useWindowDimensions()
 
   const bodyStyle = {
-    ...themedStyle[useColorScheme() ?? 'dark'],
     minHeight: height,
     padding: 12,
+    backgroundColor:
+      useColorScheme() === 'light'
+        ? TAILWIND.neutral[50]
+        : TAILWIND.neutral[950],
+
+    color: useColorScheme() === 'light' ? TAILWIND.black : TAILWIND.white,
   }
 
   return (
@@ -31,7 +26,8 @@ const SafeAreaView = ({ children }: { children: React.ReactNode }) => {
       <StatusBar style="dark"></StatusBar>
       <View style={bodyStyle}>
         <View style={styles.header}>
-          <ThemeSelector></ThemeSelector>
+          <NavLInks />
+          <ThemeSelector />
         </View>
         {children}
       </View>
@@ -45,7 +41,9 @@ const styles = StyleSheet.create({
   },
   header: {
     display: 'flex',
+    alignItems: 'center',
     flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 })
 
