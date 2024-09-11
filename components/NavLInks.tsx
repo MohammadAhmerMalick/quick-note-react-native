@@ -1,3 +1,4 @@
+import { router } from 'expo-router'
 import { type FC, useState } from 'react'
 import type { SvgProps } from 'react-native-svg'
 
@@ -37,10 +38,10 @@ const NavLInks = () => {
 
   const links: Links[] = [
     {
-      link: '/',
+      link: '/(public)',
       text: 'Home',
       Icon: FiHomeIcon,
-      onClick: () => console.log('/'),
+      onClick: () => router.push('/(public)'),
     },
     // {
     //   text: 'Notes',
