@@ -1,13 +1,13 @@
 import {
   Montserrat_100Thin,
-  Montserrat_200ExtraLight,
-  Montserrat_300Light,
-  Montserrat_400Regular,
-  Montserrat_500Medium,
-  Montserrat_600SemiBold,
   Montserrat_700Bold,
-  Montserrat_800ExtraBold,
   Montserrat_900Black,
+  Montserrat_300Light,
+  Montserrat_500Medium,
+  Montserrat_400Regular,
+  Montserrat_600SemiBold,
+  Montserrat_800ExtraBold,
+  Montserrat_200ExtraLight,
 } from '@expo-google-fonts/montserrat'
 import { useFonts } from 'expo-font'
 import { Stack } from 'expo-router'
@@ -15,14 +15,14 @@ import { Stack } from 'expo-router'
 export default function RootLayout() {
   const [loaded] = useFonts({
     Montserrat_100Thin,
-    Montserrat_200ExtraLight,
-    Montserrat_300Light,
-    Montserrat_400Regular,
-    Montserrat_500Medium,
-    Montserrat_600SemiBold,
     Montserrat_700Bold,
-    Montserrat_800ExtraBold,
     Montserrat_900Black,
+    Montserrat_300Light,
+    Montserrat_500Medium,
+    Montserrat_400Regular,
+    Montserrat_600SemiBold,
+    Montserrat_800ExtraBold,
+    Montserrat_200ExtraLight,
   })
 
   return (
