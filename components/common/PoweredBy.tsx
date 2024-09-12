@@ -44,12 +44,14 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 12,
     lineHeight: 16,
+    fontFamily: 'Montserrat_400Regular',
   },
 
   link: {
     borderBottomWidth: 1,
     fontSize: 12,
     lineHeight: 16,
+    fontFamily: 'Montserrat_400Regular',
   },
 })
 export default PoweredBy

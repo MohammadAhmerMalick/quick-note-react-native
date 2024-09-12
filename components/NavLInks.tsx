@@ -54,11 +54,12 @@ const NavLInks = () => {
 
   const styleStates = {
     link: {
+      ...styles.link,
       backgroundColor: isLightTheme ? white : neutral[800],
       borderColor: isLightTheme ? neutral[200] : neutral[600],
-      ...styles.link,
     },
     text: {
+      ...styles.text,
       color: isLightTheme ? neutral[600] : neutral[50],
     },
   }
@@ -96,9 +97,11 @@ const styles = StyleSheet.create({
 
     borderWidth: 1,
     borderRadius: 9999,
-
+  },
+  text: {
     fontSize: 14,
     lineHeight: 20,
+    fontFamily: 'Montserrat_400Regular',
   },
 })
 

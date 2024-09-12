@@ -21,10 +21,11 @@ const styles = StyleSheet.create({
   h1: {
     marginTop: 16,
     marginBottom: 8,
+
     fontSize: 20,
     lineHeight: 28,
-    fontWeight: '600',
     textAlign: 'center',
+    fontFamily: 'Montserrat_600SemiBold',
   },
 })
 
