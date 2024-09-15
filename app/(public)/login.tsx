@@ -7,16 +7,13 @@ import Input from '@/components/common/Input'
 import Button from '@/components/common/Button'
 import SafeAreaView from '@/components/common/SafeAreaView'
 import PublicLayout from '@/components/layouts/PublicLayout'
-import FileDropAera from '@/components/common/FileDropAera'
 
-const CreateNotePage = () => {
+const LoginPage = () => {
   const { isLightTheme } = useTheme()
   const { neutral, white } = TAILWIND
 
-  const [title, setTitle] = useState('')
-  const [fileValue, setFileValue] = useState('')
-  // const [file, setFile] = useState<File | ''>('')
-  const [description, setDescription] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -28,34 +25,26 @@ const CreateNotePage = () => {
     },
   }
 
-  const onFileChange = (fileTarget: EventTarget & HTMLInputElement) => {
-    setFileValue(fileTarget.value)
-    // setFile(fileTarget.files?.[0] || '')
-  }
-
   return (
     <SafeAreaView>
       <PublicLayout>
         <View style={styleStates.form}>
           <View style={styles.fieldContainer}>
             <Input
-              value={title}
-              labelText="Title"
-              placeholder="Title"
-              onChangeText={setTitle}
+              value={email}
+              labelText="Email"
+              placeholder="Email"
+              onChangeText={setEmail}
             />
           </View>
           <View style={styles.fieldContainer}>
             <Input
-              value={description}
-              labelText="Description"
-              placeholder="Description"
-              onChangeText={setDescription}
+              secureTextEntry
+              value={password}
+              labelText="Password"
+              placeholder="Password"
+              onChangeText={setPassword}
             />
-          </View>
-
-          <View style={styles.fieldContainer}>
-            <FileDropAera value={fileValue} onChange={onFileChange} />
           </View>
 
           <Button
@@ -82,4 +71,4 @@ const styles = {
   },
 }
 
-export default CreateNotePage
+export default LoginPage

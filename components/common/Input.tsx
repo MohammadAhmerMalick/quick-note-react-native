@@ -15,6 +15,7 @@ interface Input {
   labelText?: string
   autoFocus?: boolean
   placeholder: string
+  secureTextEntry?: boolean
   keyboardType?: KeyboardTypeOptions | undefined
   onChangeText: (text: string) => void
 }
@@ -24,6 +25,7 @@ const Input = ({
   labelText,
   autoFocus,
   placeholder,
+  secureTextEntry,
   keyboardType = 'default',
   onChangeText,
 }: Input) => {
@@ -36,6 +38,9 @@ const Input = ({
 
   const onFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
     setIsFocused(true)
+  }
+  const onBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+    setIsFocused(false)
   }
 
   useEffect(() => {
@@ -69,7 +74,9 @@ const Input = ({
         style={styleStates.input}
         placeholder={placeholder}
         keyboardType={keyboardType}
+        secureTextEntry={secureTextEntry}
         placeholderTextColor={neutral[400]}
+        onBlur={onBlur}
         onFocus={onFocus}
         onChangeText={onChangeText}
       />

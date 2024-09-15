@@ -25,9 +25,14 @@ export default function RootLayout() {
     Montserrat_200ExtraLight,
   })
 
+  if (!loaded) {
+    return null
+  }
+
   return (
     <Stack>
       <Stack.Screen name="(public)/index" options={{ headerShown: false }} />
+      <Stack.Screen name="(public)/login" options={{ headerShown: false }} />
     </Stack>
   )
 }
