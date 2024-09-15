@@ -20,17 +20,62 @@ const CreateNotePage = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
+  const resetForm = () => {
+    setTitle('')
+    setFileValue('')
+    setDescription('')
+  }
+  const onSubmit = async () => {
+    if (!title) {
+      alert('asd')
+      return
+    }
+
+    setIsSubmitting(true)
+
+    try {
+      const body = new FormData()
+      body.append('title', title)
+      body.append('description', description)
+      // if (file) formdata.append('file', file)
+
+      // const response = await storeNoteAction(formdata)
+      const res = await fetch('http://192.168.0.93:3000/api/note', {
+        body,
+        method: 'POST',
+      })
+
+      const response = await res.json()
+
+      // on success
+      if (response.status === 'success') {
+        console.log(response.message)
+        resetForm()
+        // TITLE_INPUT.current?.focus()
+      }
+
+      // on reject
+      // else if (response.status === 'error')
+      //   response.messages.forEach((message) => toast.error(message))
+    } catch (error) {
+      console.log(error)
+      console.log('Unable to create note')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  const onFileChange = (fileTarget: EventTarget & HTMLInputElement) => {
+    setFileValue(fileTarget.value)
+    // setFile(fileTarget.files?.[0] || '')
+  }
+
   const styleStates = {
     form: {
       ...styles.form,
       backgroundColor: isLightTheme ? white : neutral[850],
       borderColor: isLightTheme ? neutral[100] : neutral[800],
     },
-  }
-
-  const onFileChange = (fileTarget: EventTarget & HTMLInputElement) => {
-    setFileValue(fileTarget.value)
-    // setFile(fileTarget.files?.[0] || '')
   }
 
   return (
@@ -58,9 +103,7 @@ const CreateNotePage = () => {
             <FileDropAera value={fileValue} onChange={onFileChange} />
           </View>
 
-          <Button
-          // disabled={isSubmitting}
-          >
+          <Button disabled={isSubmitting} onPress={onSubmit}>
             {isSubmitting ? 'Submitting' : 'Submit'}
           </Button>
         </View>

@@ -6,6 +6,7 @@ import {
 } from 'react-native'
 import { type ReactNode } from 'react'
 
+import useTheme from '@/hook/useTheme'
 import { TAILWIND } from '@/constants'
 
 interface Button {
@@ -15,14 +16,42 @@ interface Button {
 }
 
 const Button = ({ disabled, children, onPress }: Button) => {
+  const { yellow, neutral } = TAILWIND
+  const { isLightTheme } = useTheme()
+
+  const styleStates = {
+    pressable: {
+      ...styles.pressable,
+
+      borderColor: disabled
+        ? isLightTheme
+          ? neutral[200]
+          : neutral[700]
+        : yellow[500],
+
+      backgroundColor: disabled
+        ? isLightTheme
+          ? neutral[200]
+          : neutral[700]
+        : yellow[500],
+
+      color: 'red',
+    },
+
+    text: {
+      ...styles.text,
+
+      color: disabled ? neutral[400] : neutral[900],
+    },
+  }
   return (
     <Pressable
       disabled={disabled}
       aria-disabled={disabled}
-      style={styles.pressable}
+      style={styleStates.pressable}
       onPress={onPress}
     >
-      <Text style={styles.text}>{children}</Text>
+      <Text style={styleStates.text}>{children}</Text>
     </Pressable>
   )
 }
@@ -38,9 +67,6 @@ const styles = StyleSheet.create({
 
     borderWidth: 1,
     borderRadius: 6,
-    borderColor: TAILWIND.yellow[500],
-
-    backgroundColor: TAILWIND.yellow[500],
   },
 
   text: {
