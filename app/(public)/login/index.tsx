@@ -1,21 +1,25 @@
 import { useState } from 'react'
 import { View } from 'react-native'
 
-import { TAILWIND } from '@/constants'
+import useAuth from '@/hook/useAuth'
 import useTheme from '@/hook/useTheme'
+import { TAILWIND } from '@/constants'
 import Input from '@/components/common/Input'
 import Button from '@/components/common/Button'
 import SafeAreaView from '@/components/common/SafeAreaView'
 import PublicLayout from '@/components/layouts/PublicLayout'
 
 const LoginPage = () => {
-  const { isLightTheme } = useTheme()
   const { neutral, white } = TAILWIND
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const { isLightTheme } = useTheme()
+  const { isloading, login } = useAuth()
+  const [email, setEmail] = useState('mohammadahmermalick@gmail.com')
+  const [password, setPassword] = useState('adminadmin')
 
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const onSubmit = () => {
+    login(email, password)
+  }
 
   const styleStates = {
     form: {
@@ -47,10 +51,8 @@ const LoginPage = () => {
             />
           </View>
 
-          <Button
-          // disabled={isSubmitting}
-          >
-            {isSubmitting ? 'Submitting' : 'Submit'}
+          <Button disabled={isloading} onPress={onSubmit}>
+            login
           </Button>
         </View>
       </PublicLayout>

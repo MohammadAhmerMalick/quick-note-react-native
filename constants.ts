@@ -1,5 +1,7 @@
 export const PRIAMRY_COLOR = '#EAB308'
 
+export const API_BASE_URL = 'http://192.168.0.93:3000/api/'
+
 export const TAILWIND = {
   inherit: 'inherit',
   current: 'currentColor',

@@ -1,8 +1,9 @@
-import { type FC, useState } from 'react'
+import { type FC } from 'react'
 import type { SvgProps } from 'react-native-svg'
 import { type Href, router, usePathname } from 'expo-router'
 import { View, Text, Pressable, StyleSheet } from 'react-native'
 
+import useAuth from '@/hook/useAuth'
 import useTheme from '@/hook/useTheme'
 import { TAILWIND } from '@/constants'
 import { FiFolderIcon, FiHomeIcon, FiLogInIcon } from '@/utils/icons'
@@ -19,7 +20,7 @@ const NavLInks = () => {
   const pathname = usePathname()
   const { isLightTheme } = useTheme()
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const { isLoggedIn, logOut } = useAuth()
 
   const getAuthNavAction = () =>
     isLoggedIn
@@ -27,15 +28,13 @@ const NavLInks = () => {
           text: 'Logout',
           link: '/logout',
           Icon: FiLogInIcon,
-          onClick: () => console.log('login'),
+          onClick: logOut,
         }
       : {
           text: 'Login',
           link: '/login',
           Icon: FiLogInIcon,
-          // onClick: () => router.push('/(public)/login'),
-          onClick: () =>
-            router.push('/(public)/login' as Href<string | object>),
+          onClick: () => router.push('/(public)/login'),
         }
 
   const links: Links[] = [
