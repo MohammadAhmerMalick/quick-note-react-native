@@ -9,11 +9,15 @@ import {
   Montserrat_800ExtraBold,
   Montserrat_200ExtraLight,
 } from '@expo-google-fonts/montserrat'
-import { useFonts } from 'expo-font'
+import { Text } from 'react-native'
 import { Stack } from 'expo-router'
+import { useFonts } from 'expo-font'
+
+import useAuth from '@/hook/useAuth'
+import { AuthContext } from '@/contexts/authContext'
 
 export default function RootLayout() {
-  const [loaded] = useFonts({
+  const [fontLoading] = useFonts({
     Montserrat_100Thin,
     Montserrat_700Bold,
     Montserrat_900Black,
@@ -25,13 +29,30 @@ export default function RootLayout() {
     Montserrat_200ExtraLight,
   })
 
-  if (!loaded) {
-    return null
-  }
+  const {
+    login,
+    logOut,
+    isLoggedIn,
+    verifyToken,
+    isAuthLoading,
+  } = useAuth()
+
+  if (!fontLoading) return <Text>Loading</Text>
 
   return (
-    <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="(public)/index" />
-    </Stack>
+    <AuthContext.Provider
+      value={{
+        login,
+        logOut,
+        isLoggedIn,
+        verifyToken,
+        isAuthLoading,
+      }}
+    >
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="(public)/index" />
+        <Stack.Screen name="(public)/login" />
+      </Stack>
+    </AuthContext.Provider>
   )
 }

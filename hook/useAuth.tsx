@@ -1,36 +1,32 @@
-import { usePathname } from 'expo-router'
-import { useCallback, useEffect, useState } from 'react'
-
+import { useCallback, useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+
 import { loginRequest, logOutRequest, verifyTokenRequest } from '@/network'
 
 const useAuth = () => {
-  const pathname = usePathname()
   const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [isloading, setIsLoading] = useState(true)
+  const [isAuthLoading, setIsAuthLoading] = useState(false)
 
   const verifyToken = useCallback(async () => {
-    setIsLoading(true)
+    setIsAuthLoading(true)
     const token = await AsyncStorage.getItem('token')
-
     if (token) {
       const { isVerified } = await verifyTokenRequest(token)
       setIsLoggedIn(isVerified)
     }
-
-    setIsLoading(false)
+    setIsAuthLoading(false)
   }, [])
 
   const logOut = async () => {
-    setIsLoading(true)
+    setIsAuthLoading(true)
     await AsyncStorage.clear()
     await logOutRequest()
     setIsLoggedIn(false)
-    setIsLoading(false)
+    setIsAuthLoading(false)
   }
 
   const login = async (email: string, password: string) => {
-    setIsLoading(true)
+    setIsAuthLoading(true)
 
     if (!email || !password) {
       alert('Fields are required')
@@ -44,19 +40,22 @@ const useAuth = () => {
     const { status, messages, token } = await loginRequest(body)
     await AsyncStorage.setItem('token', token)
 
+    if (status === 'success') setIsLoggedIn(true)
     if (status === 'error') {
       messages.forEach((message: string) => alert(message))
       alert('Unable to login')
     }
 
-    setIsLoading(false)
+    setIsAuthLoading(false)
   }
 
-  useEffect(() => {
-    verifyToken()
-  }, [verifyToken, pathname])
-
-  return { isLoggedIn, isloading, logOut, login }
+  return {
+    login,
+    logOut,
+    isLoggedIn,
+    verifyToken,
+    isAuthLoading,
+  }
 }
 
 export default useAuth

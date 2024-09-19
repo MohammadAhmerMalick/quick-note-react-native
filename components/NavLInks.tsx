@@ -1,11 +1,11 @@
-import { type FC } from 'react'
+import { useContext, type FC } from 'react'
 import type { SvgProps } from 'react-native-svg'
 import { type Href, router, usePathname } from 'expo-router'
 import { View, Text, Pressable, StyleSheet } from 'react-native'
 
-import useAuth from '@/hook/useAuth'
-import useTheme from '@/hook/useTheme'
 import { TAILWIND } from '@/constants'
+import useTheme from '@/hook/useTheme'
+import { AuthContext } from '@/contexts/authContext'
 import { FiFolderIcon, FiHomeIcon, FiLogInIcon } from '@/utils/icons'
 
 interface Links {
@@ -20,7 +20,7 @@ const NavLInks = () => {
   const pathname = usePathname()
   const { isLightTheme } = useTheme()
 
-  const { isLoggedIn, logOut } = useAuth()
+  const { logOut, isLoggedIn } = useContext(AuthContext)
 
   const getAuthNavAction = () =>
     isLoggedIn
@@ -34,7 +34,7 @@ const NavLInks = () => {
           text: 'Login',
           link: '/login',
           Icon: FiLogInIcon,
-          onClick: () => router.push('/(public)/login'),
+          onClick: () => router.replace('/(public)/login'),
         }
 
   const links: Links[] = [
@@ -42,7 +42,7 @@ const NavLInks = () => {
       text: 'Home',
       link: '/',
       Icon: FiHomeIcon,
-      onClick: () => router.push('/(public)'),
+      onClick: () => router.replace('/(public)'),
     },
     // {
     //   text: 'Notes',

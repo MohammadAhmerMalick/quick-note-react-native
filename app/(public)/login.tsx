@@ -1,19 +1,21 @@
-import { useState } from 'react'
 import { View } from 'react-native'
+import { router } from 'expo-router'
+import { useContext, useState } from 'react'
 
-import useAuth from '@/hook/useAuth'
 import useTheme from '@/hook/useTheme'
 import { TAILWIND } from '@/constants'
 import Input from '@/components/common/Input'
 import Button from '@/components/common/Button'
+import { AuthContext } from '@/contexts/authContext'
 import SafeAreaView from '@/components/common/SafeAreaView'
 import PublicLayout from '@/components/layouts/PublicLayout'
 
 const LoginPage = () => {
   const { neutral, white } = TAILWIND
 
+  const { login, isLoggedIn, isAuthLoading } = useContext(AuthContext)
+
   const { isLightTheme } = useTheme()
-  const { isloading, login } = useAuth()
   const [email, setEmail] = useState('mohammadahmermalick@gmail.com')
   const [password, setPassword] = useState('adminadmin')
 
@@ -28,6 +30,8 @@ const LoginPage = () => {
       borderColor: isLightTheme ? neutral[100] : neutral[800],
     },
   }
+
+  if (!isAuthLoading && isLoggedIn) router.replace('/(public)')
 
   return (
     <SafeAreaView>
@@ -51,7 +55,7 @@ const LoginPage = () => {
             />
           </View>
 
-          <Button disabled={isloading} onPress={onSubmit}>
+          <Button disabled={isAuthLoading} onPress={onSubmit}>
             login
           </Button>
         </View>
