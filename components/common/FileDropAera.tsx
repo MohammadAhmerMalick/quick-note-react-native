@@ -10,16 +10,19 @@ import useTheme from '@/hook/useTheme'
 import { TAILWIND } from '@/constants'
 import { AiOutlineCloudUploadIcon } from '@/utils/icons'
 
-interface FileDropAera {
+interface FileDropAeraProps {
   value: string
   onChange: (currentTarget: EventTarget & HTMLInputElement) => void
 }
 
-const FileDropAera = ({ value, onChange }: FileDropAera) => {
+const FileDropAera = ({ value, onChange }: FileDropAeraProps) => {
   const { isLightTheme } = useTheme()
   const { neutral, white } = TAILWIND
 
-  const [image, setImage] = useState('')
+  const [
+    image,
+    //  setImage
+  ] = useState('')
 
   // const handleFileChange = ({
   //   currentTarget,

@@ -10,7 +10,7 @@ import useTheme from '@/hook/useTheme'
 import { TAILWIND } from '@/constants'
 import { useEffect, useRef, useState } from 'react'
 
-interface Input {
+interface InputProps {
   value: string
   labelText?: string
   autoFocus?: boolean
@@ -28,7 +28,7 @@ const Input = ({
   secureTextEntry,
   keyboardType = 'default',
   onChangeText,
-}: Input) => {
+}: InputProps) => {
   const TITLE_INPUT = useRef<any>(undefined)
   const { neutral, white, yellow } = TAILWIND
 
@@ -44,7 +44,7 @@ const Input = ({
 
   useEffect(() => {
     if (autoFocus) TITLE_INPUT.current?.focus()
-  }, [])
+  }, [autoFocus])
 
   const styleStates = {
     text: {

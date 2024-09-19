@@ -20,6 +20,8 @@ const ThemeSelector = () => {
   const { isLightTheme } = useTheme()
   const { neutral } = TAILWIND
 
+  const activeTheme = useColorScheme()
+
   const options: Option[] = [
     { id: 'light', Icon: FiFiSunIcon },
     { id: 'dark', Icon: FiFiMoonIcon },
@@ -36,7 +38,7 @@ const ThemeSelector = () => {
     <View style={styles.view}>
       {options.map(
         ({ id, Icon }) =>
-          useColorScheme() !== id && (
+          activeTheme !== id && (
             <Pressable
               key={id}
               style={pressableStyle}

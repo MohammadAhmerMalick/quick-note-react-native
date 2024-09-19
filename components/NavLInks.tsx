@@ -1,12 +1,16 @@
 import { useContext, type FC } from 'react'
 import type { SvgProps } from 'react-native-svg'
-import { type Href, router, usePathname } from 'expo-router'
+import { router, usePathname } from 'expo-router'
 import { View, Text, Pressable, StyleSheet } from 'react-native'
 
 import { TAILWIND } from '@/constants'
 import useTheme from '@/hook/useTheme'
 import { AuthContext } from '@/contexts/authContext'
-import { FiFolderIcon, FiHomeIcon, FiLogInIcon } from '@/utils/icons'
+import {
+  // FiFolderIcon,
+  FiHomeIcon,
+  FiLogInIcon,
+} from '@/utils/icons'
 
 interface Links {
   text: string

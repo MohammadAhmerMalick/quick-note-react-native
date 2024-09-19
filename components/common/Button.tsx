@@ -9,13 +9,13 @@ import { type ReactNode } from 'react'
 import useTheme from '@/hook/useTheme'
 import { TAILWIND } from '@/constants'
 
-interface Button {
+interface ButtonProps {
   disabled?: boolean
   children: ReactNode
   onPress?: (e: GestureResponderEvent) => void
 }
 
-const Button = ({ disabled, children, onPress }: Button) => {
+const Button = ({ disabled, children, onPress }: ButtonProps) => {
   const { yellow, neutral } = TAILWIND
   const { isLightTheme } = useTheme()
 
