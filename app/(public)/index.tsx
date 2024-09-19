@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { View } from 'react-native'
+import { Text, View } from 'react-native'
 
 import { TAILWIND } from '@/constants'
 import useTheme from '@/hook/useTheme'

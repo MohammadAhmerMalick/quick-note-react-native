@@ -8,7 +8,7 @@ import {
 } from 'react-native'
 import useTheme from '@/hook/useTheme'
 import { TAILWIND } from '@/constants'
-import { type LegacyRef, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 interface Input {
   value: string
@@ -30,7 +30,6 @@ const Input = ({
   onChangeText,
 }: Input) => {
   const TITLE_INPUT = useRef<any>(undefined)
-  // const TITLE_INPUT = useRef<LegacyRef<TextInput> | undefined>(undefined)
   const { neutral, white, yellow } = TAILWIND
 
   const { isLightTheme } = useTheme()
@@ -49,6 +48,7 @@ const Input = ({
 
   const styleStates = {
     text: {
+      ...styles.text,
       color: isLightTheme ? neutral[900] : white,
     },
     input: {
