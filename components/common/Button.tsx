@@ -2,6 +2,7 @@ import {
   Text,
   Pressable,
   StyleSheet,
+  type ViewStyle,
   type GestureResponderEvent,
 } from 'react-native'
 import { type ReactNode } from 'react'
@@ -10,12 +11,13 @@ import useTheme from '@/hook/useTheme'
 import { TAILWIND } from '@/constants'
 
 interface ButtonProps {
+  style?: ViewStyle
   disabled?: boolean
   children: ReactNode
   onPress?: (e: GestureResponderEvent) => void
 }
 
-const Button = ({ disabled, children, onPress }: ButtonProps) => {
+const Button = ({ disabled, children, style, onPress }: ButtonProps) => {
   const { yellow, neutral } = TAILWIND
   const { isLightTheme } = useTheme()
 
@@ -36,6 +38,8 @@ const Button = ({ disabled, children, onPress }: ButtonProps) => {
         : yellow[500],
 
       color: 'red',
+
+      ...style,
     },
 
     text: {

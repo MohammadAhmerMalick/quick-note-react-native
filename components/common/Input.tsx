@@ -2,6 +2,7 @@ import {
   Text,
   TextInput,
   StyleSheet,
+  type TextStyle,
   type KeyboardTypeOptions,
   type NativeSyntheticEvent,
   type TextInputFocusEventData,
@@ -15,6 +16,7 @@ interface InputProps {
   labelText?: string
   autoFocus?: boolean
   placeholder: string
+  inputStyle?: TextStyle
   secureTextEntry?: boolean
   keyboardType?: KeyboardTypeOptions | undefined
   onChangeText: (text: string) => void
@@ -24,6 +26,7 @@ const Input = ({
   value,
   labelText,
   autoFocus,
+  inputStyle,
   placeholder,
   secureTextEntry,
   keyboardType = 'default',
@@ -62,12 +65,14 @@ const Input = ({
       backgroundColor: isLightTheme ? neutral[50] : neutral[800],
 
       color: isLightTheme ? neutral[900] : white,
+
+      ...inputStyle,
     },
   }
 
   return (
     <>
-      <Text style={styleStates.text}>{labelText}</Text>
+      {labelText && <Text style={styleStates.text}>{labelText}</Text>}
       <TextInput
         ref={TITLE_INPUT}
         value={value}
