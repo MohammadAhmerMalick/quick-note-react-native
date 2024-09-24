@@ -6,6 +6,7 @@ import { loginRequest, logOutRequest, verifyTokenRequest } from '@/network'
 const useAuth = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [isAuthLoading, setIsAuthLoading] = useState(false)
+  const [isTokenChecked, setIsTokenChecked] = useState(false)
 
   const verifyToken = useCallback(async () => {
     setIsAuthLoading(true)
@@ -14,6 +15,8 @@ const useAuth = () => {
       const { isVerified } = await verifyTokenRequest(token)
       setIsLoggedIn(isVerified)
     }
+
+    setIsTokenChecked(true)
     setIsAuthLoading(false)
   }, [])
 
@@ -55,6 +58,7 @@ const useAuth = () => {
     isLoggedIn,
     verifyToken,
     isAuthLoading,
+    isTokenChecked,
   }
 }
 
