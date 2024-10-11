@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar'
-import { StyleSheet, View } from 'react-native'
+import { ScrollView, StyleSheet, View } from 'react-native'
 import { useColorScheme, useWindowDimensions } from 'react-native'
 import { SafeAreaView as SafeArea } from 'react-native-safe-area-context'
 
@@ -23,14 +23,16 @@ const SafeAreaView = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <SafeArea style={styles.safeArea}>
-      <StatusBar style="dark"></StatusBar>
-      <View style={bodyStyle}>
-        <View style={styles.header}>
-          <NavLInks />
-          <ThemeSelector />
+      <ScrollView>
+        <StatusBar style="dark"></StatusBar>
+        <View style={bodyStyle}>
+          <View style={styles.header}>
+            <NavLInks />
+            <ThemeSelector />
+          </View>
+          {children}
         </View>
-        {children}
-      </View>
+      </ScrollView>
     </SafeArea>
   )
 }

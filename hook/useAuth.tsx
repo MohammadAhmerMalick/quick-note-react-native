@@ -14,6 +14,8 @@ const useAuth = () => {
     if (token) {
       const { isVerified } = await verifyTokenRequest(token)
       setIsLoggedIn(isVerified)
+
+      if (!isVerified) await AsyncStorage.clear()
     }
 
     setIsTokenChecked(true)

@@ -1,11 +1,12 @@
-import { View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { useCallback, useEffect, useState } from 'react'
 
+import { getNotesRequest } from '@/network'
+import NoteList from '@/components/NoteList'
 import Input from '@/components/common/Input'
 import Button from '@/components/common/Button'
 import SafeAreaView from '@/components/common/SafeAreaView'
 import NoteStateSelector from '@/components/NoteStateSelector'
-import NotesLayoutSelector from '@/components/NotesLayoutSelector'
 
 export interface GetNotesActionReutrn {
   id: string
@@ -32,26 +33,21 @@ interface Tokens {
 const Page = () => {
   const [search, setSearch] = useState('')
   const [counter, setCounter] = useState<number>(0)
-  const [layout, setLayout] = useState<'card' | 'list'>('list')
   const [notes, setNotes] = useState<GetNotesActionReutrn[]>([])
   const [selectedState, setSelectedState] = useState<noteStates>('notDeleted')
   const [tokens, setTokens] = useState<Tokens[]>()
-  const [modalNote, setModalNote] = useState<GetNotesActionReutrn | null>(null)
+  // const [modalNote, setModalNote] = useState<GetNotesActionReutrn | null>(null)
 
   // fetch request
   const fetchNotes = async () => {
-    // try {
-    //   const res = await getNotesAction() // fetch request
-    //   //  on success
-    //   if (res.status === 'success') {
-    //     dbData = res.data // update inreactive data
-    //     setCounter((c) => c + 1) // to update ui
-    //   } else throw new Error('Unable to fetch notes')
-    // } catch (error) {
-    //   // on reject
-    //   console.log(error)
-    //   toast.error('Unable to fetch note')
-    // }
+    const res = await getNotesRequest() // fetch request
+    //  on success
+    if (res.status === 'success') {
+      dbData = res.data // update inreactive data
+      setCounter((c) => c + 1) // to update ui
+    } else {
+      console.log('error')
+    }
   }
 
   // delete request
@@ -155,13 +151,8 @@ const Page = () => {
 
   return (
     <SafeAreaView>
-      <View
-        style={{
-          flexDirection: 'row',
-          gap: 4,
-          marginTop: 16,
-        }}
-      >
+      {/* tool kit */}
+      <View style={styles.toolkitContainer}>
         <Input
           autoFocus
           value={search}
@@ -173,38 +164,57 @@ const Page = () => {
           onChangeText={setSearch}
         />
 
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'flex-end',
-            gap: 4,
-          }}
-        >
+        <View style={styles.toolkitButtonContainer}>
           <NoteStateSelector
             selectedState={selectedState}
             setSelectedState={setSelectedState}
           />
 
-          <NotesLayoutSelector layout={layout} setLayout={setLayout} />
-
-          <Button
-            style={{
-              alignItems: 'center',
-              justifyContent: 'center',
-              paddingTop: 3,
-              paddingLeft: 3,
-              paddingRight: 3,
-              paddingBottom: 3,
-              minWidth: 36,
-              maxWidth: '100%',
-            }}
-          >
-            {notes.length}
-          </Button>
+          <Button style={styles.notesCounter}>{notes.length}</Button>
         </View>
+      </View>
+
+      <View style={styles.notesContainer}>
+        {notes.map((note) => (
+          <NoteList
+            note={note}
+            key={note.id}
+            deleteNote={deleteNote}
+            restoreNote={restoreNote}
+            // onClick={() => setModalNote(note)}
+          />
+        ))}
       </View>
     </SafeAreaView>
   )
 }
+
+const styles = StyleSheet.create({
+  toolkitContainer: {
+    flexDirection: 'row',
+    gap: 4,
+    marginTop: 16,
+  },
+  notesCounter: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 3,
+    paddingLeft: 3,
+    paddingRight: 3,
+    paddingBottom: 3,
+    minWidth: 36,
+    maxWidth: '100%',
+  },
+  toolkitButtonContainer: {
+    flexDirection: 'row',
+    gap: 4,
+  },
+
+  notesContainer: {
+    gap: 12,
+
+    marginTop: 16,
+  },
+})
 
 export default Page

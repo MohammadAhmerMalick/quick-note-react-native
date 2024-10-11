@@ -1,10 +1,16 @@
+import {
+  Pressable,
+  StyleSheet,
+  type ViewStyle,
+  type GestureResponderEvent,
+} from 'react-native'
 import type { ReactNode } from 'react'
-import { type GestureResponderEvent, Pressable, StyleSheet } from 'react-native'
 
 import useTheme from '@/hook/useTheme'
 import { TAILWIND } from '@/constants'
 
 interface IconButtonProps {
+  style?: ViewStyle
   isActive?: boolean
   disabled?: boolean
   ariaLabel?: string
@@ -14,6 +20,7 @@ interface IconButtonProps {
 }
 
 const IconButton = ({
+  style,
   children,
   ariaLabel,
   isActive = false,
@@ -41,7 +48,7 @@ const IconButton = ({
       onPress={onPress}
       disabled={disabled}
       aria-label={ariaLabel}
-      style={styleStates.pressable}
+      style={{ ...styleStates.pressable, ...style }}
     >
       {children}
     </Pressable>
