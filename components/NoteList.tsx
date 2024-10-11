@@ -10,6 +10,7 @@ import useTheme from '@/hook/useTheme'
 import { TAILWIND } from '@/constants'
 import IconButton from '@/components/common/IconButton'
 import { type GetNotesActionReutrn } from '@/app/(protected)'
+import { setStringAsync } from 'expo-clipboard'
 
 interface NoteListProp {
   note: GetNotesActionReutrn
@@ -35,9 +36,9 @@ const NoteList = ({
     restoreNote(note.id)
   }
 
-  const copyDescriptionToClipboard = () => {
+  const copyDescriptionToClipboard = async () => {
     alert('copied')
-    navigator.clipboard.writeText(note.description)
+    await setStringAsync(note.description)
   }
 
   const styleStates = {

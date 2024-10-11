@@ -4,7 +4,7 @@ import { API_BASE_URL } from '@/constants'
 
 const apiBaseUrl = API_BASE_URL
 
-type methods = 'GET' | 'POST'
+type methods = 'GET' | 'POST' | 'DELETE' | 'PUT'
 
 const call = async (
   url: string,
@@ -26,7 +26,7 @@ const call = async (
     return data
   } catch (error) {
     console.log({ network: error })
-    return { status: 'error', message: 'Unable to login' }
+    return { status: 'error', message: 'Something went wrong' }
   }
 }
 
@@ -55,10 +55,38 @@ const getNotesRequest = async () => {
   return call('notes', 'GET', '', headers)
 }
 
+const softDeleteNotesRequest = async (id: string) => {
+  const token = await AsyncStorage.getItem('token')
+
+  const headers = {
+    'Content-type': 'application/json',
+    Authorization: `Bearer ${token || ''}`,
+  }
+
+  const body = JSON.stringify({ id })
+
+  return call(`notes`, 'DELETE', body, headers)
+}
+
+const restoreNoteRequest = async (id: string) => {
+  const token = await AsyncStorage.getItem('token')
+
+  const headers = {
+    'Content-type': 'application/json',
+    Authorization: `Bearer ${token || ''}`,
+  }
+
+  const body = JSON.stringify({ id })
+
+  return call(`notes`, 'PUT', body, headers)
+}
+
 export {
   apiBaseUrl,
   loginRequest,
   logOutRequest,
   getNotesRequest,
+  restoreNoteRequest,
   verifyTokenRequest,
+  softDeleteNotesRequest,
 }

@@ -1,7 +1,11 @@
 import { StyleSheet, View } from 'react-native'
 import { useCallback, useEffect, useState } from 'react'
 
-import { getNotesRequest } from '@/network'
+import {
+  getNotesRequest,
+  restoreNoteRequest,
+  softDeleteNotesRequest,
+} from '@/network'
 import NoteList from '@/components/NoteList'
 import Input from '@/components/common/Input'
 import Button from '@/components/common/Button'
@@ -52,42 +56,32 @@ const Page = () => {
 
   // delete request
   const deleteNote = async (id: string) => {
-    // try {
-    //   const { status } = await softDeleteNoteAction(id) // delete request
-    //   // on success
-    //   if (status === 'success') {
-    //     // change the deleted state of onetime fetched data
-    //     dbData = dbData.map((note) =>
-    //       id === note.id
-    //         ? { ...note, deletedAt: new Date().toString() }
-    //         : { ...note }
-    //     )
-    //     // update the counter to update the notes list
-    //     setCounter((c) => c + 1)
-    //   } else throw new Error('Unable to delete note')
-    // } catch (error) {
-    //   // on reject
-    //   console.log({ error })
-    //   toast.error('Unable to delete')
-    // }
+    const { status } = await softDeleteNotesRequest(id)
+
+    // on success
+    if (status === 'success') {
+      // change the deleted state of onetime fetched data
+      dbData = dbData.map((note) =>
+        id === note.id
+          ? { ...note, deletedAt: new Date().toString() }
+          : { ...note }
+      )
+
+      // update the counter to update the notes list
+      setCounter((c) => c + 1)
+    } else alert('Unable to delete note')
   }
 
   const restoreNote = async (id: string) => {
-    // try {
-    //   const { status } = await restoreNoteAction(id)
-    //   // on success
-    //   if (status === 'success') {
-    //     dbData = dbData.map((note) =>
-    //       id === note.id ? { ...note, deletedAt: null } : { ...note }
-    //     )
-    //     // update the counter to update the notes list
-    //     setCounter((c) => c + 1)
-    //   } else throw new Error('Unable to restore note')
-    // } catch (error) {
-    //   // on reject
-    //   console.log({ error })
-    //   toast.error('Unable to restore')
-    // }
+    const { status } = await restoreNoteRequest(id)
+    // on success
+    if (status === 'success') {
+      dbData = dbData.map((note) =>
+        id === note.id ? { ...note, deletedAt: null } : { ...note }
+      )
+      // update the counter to update the notes list
+      setCounter((c) => c + 1)
+    } else alert('Unable to restore note')
   }
 
   const inSearch = useCallback(
