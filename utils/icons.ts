@@ -6,6 +6,7 @@ import FiLogInIcon from '@/assets/icons/fi-log-in.svg'
 import FiFolderIcon from '@/assets/icons/fi-folder.svg'
 import AiOutlineCopyIcon from '@/assets/icons/ai-outline-copy.svg'
 import AiOutlineSaveIcon from '@/assets/icons/ai-outline-save.svg'
+import AiOutlineCloseIcon from '@/assets/icons/ai-outline-close.svg'
 import AiOutlineDeleteIcon from '@/assets/icons/ai-outline-delete.svg'
 import AiOutlineDatabaseIcon from '@/assets/icons/ai-outline-database.svg'
 import AiOutlineCreditCardIcon from '@/assets/icons/ai-outline-credit-card.svg'
@@ -21,6 +22,7 @@ export {
   FiFolderIcon,
   AiOutlineCopyIcon,
   AiOutlineSaveIcon,
+  AiOutlineCloseIcon,
   AiOutlineDeleteIcon,
   AiOutlineDatabaseIcon,
   AiOutlineOrderedListIcon,

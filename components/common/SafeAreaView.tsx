@@ -7,7 +7,15 @@ import NavLInks from '@/components/NavLInks'
 import { PRIAMRY_COLOR, TAILWIND } from '@/constants'
 import ThemeSelector from '@/components/common/ThemeSelector'
 
-const SafeAreaView = ({ children }: { children: React.ReactNode }) => {
+interface SafeAreaViewProps {
+  children: React.ReactNode
+  scrollEnabled?: boolean
+}
+
+const SafeAreaView = ({
+  children,
+  scrollEnabled = true,
+}: SafeAreaViewProps) => {
   const { height } = useWindowDimensions()
 
   const bodyStyle = {
@@ -23,7 +31,7 @@ const SafeAreaView = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <SafeArea style={styles.safeArea}>
-      <ScrollView>
+      <ScrollView scrollEnabled={scrollEnabled}>
         <StatusBar style="dark"></StatusBar>
         <View style={bodyStyle}>
           <View style={styles.header}>

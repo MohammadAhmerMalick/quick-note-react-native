@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import { router } from 'expo-router'
+import { Redirect } from 'expo-router'
 import { useContext, useState } from 'react'
 
 import useTheme from '@/hook/useTheme'
@@ -31,7 +31,7 @@ const LoginPage = () => {
     },
   }
 
-  if (!isAuthLoading && isLoggedIn) router.replace('/(public)')
+  if (!isAuthLoading && isLoggedIn) return <Redirect href={'/(protected)'} />
 
   return (
     <SafeAreaView>

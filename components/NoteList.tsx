@@ -1,5 +1,7 @@
 import { Image } from 'expo-image'
-import { StyleSheet, Text, View } from 'react-native'
+import { setStringAsync } from 'expo-clipboard'
+import { Dispatch, SetStateAction, useContext } from 'react'
+import { View, Text, Pressable, StyleSheet } from 'react-native'
 
 import {
   AiOutlineCopyIcon,
@@ -8,25 +10,25 @@ import {
 } from '@/utils/icons'
 import useTheme from '@/hook/useTheme'
 import { TAILWIND } from '@/constants'
+import { NotesContext } from '@/contexts/notesContext'
 import IconButton from '@/components/common/IconButton'
-import { type GetNotesActionReutrn } from '@/app/(protected)'
-import { setStringAsync } from 'expo-clipboard'
+import { type GetNotesActionReutrn } from '@/hook/useNotes'
 
 interface NoteListProp {
   note: GetNotesActionReutrn
-  deleteNote(id: string): void
-  restoreNote(id: string): void
-  // onClick: MouseEventHandler<HTMLDivElement> | undefined
+  setShowModal: Dispatch<SetStateAction<boolean>>
 }
 const { neutral, white, red, yellow, green } = TAILWIND
 
-const NoteList = ({
-  note,
-  deleteNote,
-  restoreNote,
-  // onClick
-}: NoteListProp) => {
+const NoteList = ({ note, setShowModal }: NoteListProp) => {
   const { isLightTheme } = useTheme()
+
+  const { deleteNote, restoreNote, setSelected } = useContext(NotesContext)
+
+  const onPress = () => {
+    setSelected(note.id)
+    setShowModal(true)
+  }
 
   const onDelete = () => {
     deleteNote(note.id)
@@ -62,7 +64,12 @@ const NoteList = ({
   }
 
   return (
-    <View tabIndex={0} style={styleStates.container} key={note.id}>
+    <Pressable
+      tabIndex={0}
+      key={note.id}
+      style={styleStates.container}
+      onPress={onPress}
+    >
       <View style={styles.textContainer}>
         <Text style={styleStates.heading} numberOfLines={2}>
           {note.title}
@@ -94,7 +101,7 @@ const NoteList = ({
           </IconButton>
         </View>
       </View>
-    </View>
+    </Pressable>
   )
 }
 
