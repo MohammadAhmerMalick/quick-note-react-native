@@ -1,5 +1,4 @@
 import { Image } from 'expo-image'
-import { setStringAsync } from 'expo-clipboard'
 import { Dispatch, SetStateAction, useContext } from 'react'
 import { View, Text, Pressable, StyleSheet } from 'react-native'
 
@@ -10,6 +9,7 @@ import {
 } from '@/utils/icons'
 import useTheme from '@/hook/useTheme'
 import { TAILWIND } from '@/constants'
+import { copyToClipboard } from '@/utils/functions'
 import { NotesContext } from '@/contexts/notesContext'
 import IconButton from '@/components/common/IconButton'
 import { type GetNotesActionReutrn } from '@/hook/useNotes'
@@ -36,11 +36,6 @@ const NoteList = ({ note, setShowModal }: NoteListProp) => {
 
   const onRestore = () => {
     restoreNote(note.id)
-  }
-
-  const copyDescriptionToClipboard = async () => {
-    alert('copied')
-    await setStringAsync(note.description)
   }
 
   const styleStates = {
@@ -95,7 +90,7 @@ const NoteList = ({ note, setShowModal }: NoteListProp) => {
           <IconButton
             isActive
             style={styles.yellowButton}
-            onPress={copyDescriptionToClipboard}
+            onPress={() => copyToClipboard(note.description)}
           >
             <AiOutlineCopyIcon height={16} width={16} fill={neutral[900]} />
           </IconButton>

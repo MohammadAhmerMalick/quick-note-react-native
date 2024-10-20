@@ -10,13 +10,14 @@ import {
 import { Dispatch, SetStateAction, useContext, useState } from 'react'
 
 import {
-  AiOutlineCloseIcon,
   AiOutlineCopyIcon,
-  AiOutlineDeleteIcon,
   AiOutlineSaveIcon,
+  AiOutlineCloseIcon,
+  AiOutlineDeleteIcon,
 } from '@/utils/icons'
 import useTheme from '@/hook/useTheme'
 import { TAILWIND } from '@/constants'
+import { copyToClipboard } from '@/utils/functions'
 import { NotesContext } from '@/contexts/notesContext'
 import IconButton from '@/components/common/IconButton'
 
@@ -58,8 +59,8 @@ const Modal = ({ setShowModal }: ModalProp) => {
       height: height,
 
       backgroundColor: isLightTheme
-        ? 'rgba(250,250,250 , 0.4)'
-        : 'rgba(10, 10 ,10 , 0.4)',
+        ? 'rgba(0,0,0 , 0.6)'
+        : 'rgba(0, 0 ,0 , 0.6)',
     },
     wrapper: {
       ...styles.wrapper,
@@ -109,7 +110,7 @@ const Modal = ({ setShowModal }: ModalProp) => {
 
               <IconButton
                 style={styles.yellowButton}
-                onPress={() => navigator.clipboard.writeText(note.description)}
+                onPress={() => copyToClipboard(note.description)}
               >
                 <AiOutlineCopyIcon height={16} width={16} fill={neutral[900]} />
                 <Text style={styles.lightButtonText}>Copy</Text>
@@ -134,6 +135,7 @@ const Modal = ({ setShowModal }: ModalProp) => {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
+    bottom: 0,
 
     flexDirection: 'row',
     alignItems: 'center',
@@ -170,6 +172,8 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat_600SemiBold',
   },
   para: {
+    paddingBottom: 16,
+
     borderBottomWidth: 1,
 
     fontSize: 14,

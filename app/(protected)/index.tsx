@@ -15,35 +15,36 @@ const Page = () => {
     useContext(NotesContext)
 
   return (
-    <SafeAreaView scrollEnabled={!showModal}>
-      {/* tool kit */}
-      <View style={styles.toolkitContainer}>
-        <Input
-          autoFocus
-          value={search}
-          placeholder="Search"
-          inputStyle={styles.inputStyle}
-          onChangeText={setSearch}
-        />
-
-        <View style={styles.toolkitButtonContainer}>
-          <NoteStateSelector
-            selectedState={selectedState}
-            setSelectedState={setSelectedState}
+    <>
+      {showModal && <Modal setShowModal={setShowModal} />}
+      <SafeAreaView scrollEnabled={!showModal}>
+        {/* tool kit */}
+        <View style={styles.toolkitContainer}>
+          <Input
+            autoFocus
+            value={search}
+            placeholder="Search"
+            inputStyle={styles.inputStyle}
+            onChangeText={setSearch}
           />
 
-          <Button style={styles.notesCounter}>{notes.length}</Button>
+          <View style={styles.toolkitButtonContainer}>
+            <NoteStateSelector
+              selectedState={selectedState}
+              setSelectedState={setSelectedState}
+            />
+
+            <Button style={styles.notesCounter}>{notes.length}</Button>
+          </View>
         </View>
-      </View>
 
-      {showModal && <Modal setShowModal={setShowModal} />}
-
-      <View style={styles.notesContainer}>
-        {notes.map((note) => (
-          <NoteList note={note} key={note.id} setShowModal={setShowModal} />
-        ))}
-      </View>
-    </SafeAreaView>
+        <View style={styles.notesContainer}>
+          {notes.map((note) => (
+            <NoteList note={note} key={note.id} setShowModal={setShowModal} />
+          ))}
+        </View>
+      </SafeAreaView>
+    </>
   )
 }
 

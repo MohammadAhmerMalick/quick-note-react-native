@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar'
-import { ScrollView, StyleSheet, View } from 'react-native'
 import { useColorScheme, useWindowDimensions } from 'react-native'
+import { ScrollView, StyleSheet, View, ViewStyle } from 'react-native'
 import { SafeAreaView as SafeArea } from 'react-native-safe-area-context'
 
 import NavLInks from '@/components/NavLInks'
@@ -18,15 +18,13 @@ const SafeAreaView = ({
 }: SafeAreaViewProps) => {
   const { height } = useWindowDimensions()
 
-  const bodyStyle = {
+  const bodyStyle: ViewStyle = {
     minHeight: height,
     padding: 12,
     backgroundColor:
       useColorScheme() === 'light'
         ? TAILWIND.neutral[50]
         : TAILWIND.neutral[950],
-
-    color: useColorScheme() === 'light' ? TAILWIND.black : TAILWIND.white,
   }
 
   return (
