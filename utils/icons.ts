@@ -4,6 +4,7 @@ import FiFiSunIcon from '@/assets/icons/fi-sun.svg'
 import FiFiMoonIcon from '@/assets/icons/fi-moon.svg'
 import FiLogInIcon from '@/assets/icons/fi-log-in.svg'
 import FiFolderIcon from '@/assets/icons/fi-folder.svg'
+import BsTogglesIcon from '@/assets/icons/bs-toggles.svg'
 import AiOutlineCopyIcon from '@/assets/icons/ai-outline-copy.svg'
 import AiOutlineSaveIcon from '@/assets/icons/ai-outline-save.svg'
 import AiOutlineCloseIcon from '@/assets/icons/ai-outline-close.svg'
@@ -20,6 +21,7 @@ export {
   FiLogInIcon,
   FiFiMoonIcon,
   FiFolderIcon,
+  BsTogglesIcon,
   AiOutlineCopyIcon,
   AiOutlineSaveIcon,
   AiOutlineCloseIcon,

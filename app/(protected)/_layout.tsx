@@ -9,16 +9,14 @@ export default function RootLayout() {
   const { isLoggedIn, isAuthLoading } = useContext(AuthContext)
   const {
     notes,
-    // tokens,
+    tokens,
     search,
-    // counter,
-    selectedState,
-    // setNotes,
     selected,
-    setSelected,
-    // setTokens,
+    selectedState,
+
+    setTokens,
     setSearch,
-    // setCounter,
+    setSelected,
     setSelectedState,
 
     fetchNotes,
@@ -36,13 +34,10 @@ export default function RootLayout() {
         search,
         selected,
         selectedState,
-        // tokens,
-        // counter,
-        // setNotes,
-        // setTokens,
+        tokens,
+        setTokens,
         setSearch,
         setSelected,
-        // setCounter,
         setSelectedState,
 
         fetchNotes,

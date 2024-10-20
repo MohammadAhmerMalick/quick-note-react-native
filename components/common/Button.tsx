@@ -64,10 +64,8 @@ const styles = StyleSheet.create({
   pressable: {
     alignItems: 'center',
 
-    paddingTop: 10,
-    paddingLeft: 20,
-    paddingRight: 20,
-    paddingBottom: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
 
     borderWidth: 1,
     borderRadius: 6,

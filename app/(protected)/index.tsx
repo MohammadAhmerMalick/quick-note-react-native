@@ -8,11 +8,19 @@ import Button from '@/components/common/Button'
 import { NotesContext } from '@/contexts/notesContext'
 import SafeAreaView from '@/components/common/SafeAreaView'
 import NoteStateSelector from '@/components/NoteStateSelector'
+import TokenFilter from '@/components/TokenFilter'
 
 const Page = () => {
   const [showModal, setShowModal] = useState(false)
-  const { notes, search, selectedState, setSearch, setSelectedState } =
-    useContext(NotesContext)
+  const {
+    notes,
+    tokens,
+    search,
+    selectedState,
+    setSearch,
+    setTokens,
+    setSelectedState,
+  } = useContext(NotesContext)
 
   return (
     <>
@@ -37,6 +45,8 @@ const Page = () => {
             <Button style={styles.notesCounter}>{notes.length}</Button>
           </View>
         </View>
+
+        <TokenFilter tokens={tokens} setTokens={setTokens} />
 
         <View style={styles.notesContainer}>
           {notes.map((note) => (

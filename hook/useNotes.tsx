@@ -31,10 +31,10 @@ export interface NotesFilterTokens {
 const useNotes = () => {
   const [search, setSearch] = useState('')
   const [counter, setCounter] = useState<number>(0)
-  const [notes, setNotes] = useState<GetNotesActionReutrn[]>([])
-  const [selectedState, setSelectedState] = useState<noteStates>('notDeleted')
   const [tokens, setTokens] = useState<NotesFilterTokens[]>([])
+  const [notes, setNotes] = useState<GetNotesActionReutrn[]>([])
   const [selected, setSelected] = useState<GetNotesActionReutrn['id']>('')
+  const [selectedState, setSelectedState] = useState<noteStates>('notDeleted')
 
   // fetch request
   const fetchNotes = async () => {
@@ -141,14 +141,11 @@ const useNotes = () => {
     notes,
     search,
     tokens,
-    counter,
     selected,
     selectedState,
 
-    setNotes,
     setTokens,
     setSearch,
-    setCounter,
     setSelected,
     setSelectedState,
 
