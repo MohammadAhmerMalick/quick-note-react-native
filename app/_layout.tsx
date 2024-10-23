@@ -1,37 +1,51 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import {
+  Montserrat_100Thin,
+  Montserrat_700Bold,
+  Montserrat_900Black,
+  Montserrat_300Light,
+  Montserrat_500Medium,
+  Montserrat_400Regular,
+  Montserrat_600SemiBold,
+  Montserrat_800ExtraBold,
+  Montserrat_200ExtraLight,
+} from '@expo-google-fonts/montserrat'
+import { Stack } from 'expo-router'
+import { useFonts } from 'expo-font'
 
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
+import useAuth from '@/hook/useAuth'
+import Loading from '@/components/common/Loading'
+import { AuthContext } from '@/contexts/authContext'
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
+  const [fontLoaded] = useFonts({
+    Montserrat_100Thin,
+    Montserrat_700Bold,
+    Montserrat_900Black,
+    Montserrat_300Light,
+    Montserrat_500Medium,
+    Montserrat_400Regular,
+    Montserrat_600SemiBold,
+    Montserrat_800ExtraBold,
+    Montserrat_200ExtraLight,
+  })
 
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
+  const { login, logOut, isLoggedIn, isAuthLoading } = useAuth()
 
-  if (!loaded) {
-    return null;
-  }
+  if (!fontLoaded || isAuthLoading) return <Loading />
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
+    <AuthContext.Provider
+      value={{
+        login,
+        logOut,
+        isLoggedIn,
+        isAuthLoading,
+      }}
+    >
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="(public)/index" />
+        <Stack.Screen name="(public)/login" />
       </Stack>
-    </ThemeProvider>
-  );
+    </AuthContext.Provider>
+  )
 }
