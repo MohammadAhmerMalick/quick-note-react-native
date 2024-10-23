@@ -7,9 +7,10 @@ import {
   type NativeSyntheticEvent,
   type TextInputFocusEventData,
 } from 'react-native'
+import { useEffect, useRef, useState } from 'react'
+
 import useTheme from '@/hook/useTheme'
 import { TAILWIND } from '@/constants'
-import { useEffect, useRef, useState } from 'react'
 
 interface InputProps {
   value: string
