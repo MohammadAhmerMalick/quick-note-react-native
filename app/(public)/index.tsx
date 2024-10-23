@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { View } from 'react-native'
 
-import { API_BASE_URL, TAILWIND } from '@/constants'
+import { TAILWIND } from '@/constants'
+import { createNote } from '@/network'
 import useTheme from '@/hook/useTheme'
 import Input from '@/components/common/Input'
 import Button from '@/components/common/Button'
@@ -39,13 +40,7 @@ const CreateNotePage = () => {
       body.append('description', description)
       // if (file) formdata.append('file', file)
 
-      // const response = await storeNoteAction(formdata)
-      const res = await fetch(`${API_BASE_URL}/note`, {
-        body,
-        method: 'POST',
-      })
-
-      const response = await res.json()
+      const response = await createNote(body)
 
       // on success
       if (response.status === 'success') {

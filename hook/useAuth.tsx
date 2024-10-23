@@ -1,26 +1,11 @@
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-import { loginRequest, logOutRequest, verifyTokenRequest } from '@/network'
+import { loginRequest, logOutRequest } from '@/network'
 
 const useAuth = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [isAuthLoading, setIsAuthLoading] = useState(false)
-  const [isTokenChecked, setIsTokenChecked] = useState(false)
-
-  const verifyToken = useCallback(async () => {
-    setIsAuthLoading(true)
-    const token = await AsyncStorage.getItem('token')
-    if (token) {
-      const { isVerified } = await verifyTokenRequest(token)
-      setIsLoggedIn(isVerified)
-
-      if (!isVerified) await AsyncStorage.clear()
-    }
-
-    setIsTokenChecked(true)
-    setIsAuthLoading(false)
-  }, [])
 
   const logOut = async () => {
     setIsAuthLoading(true)
@@ -58,9 +43,7 @@ const useAuth = () => {
     login,
     logOut,
     isLoggedIn,
-    verifyToken,
     isAuthLoading,
-    isTokenChecked,
   }
 }
 

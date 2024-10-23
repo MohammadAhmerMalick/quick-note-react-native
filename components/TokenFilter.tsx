@@ -63,6 +63,8 @@ const styles = StyleSheet.create({
     gap: 4,
     flexDirection: 'row',
 
+    height: 26,
+
     marginTop: 16,
     paddingHorizontal: 4,
   },

@@ -29,7 +29,7 @@ export default function RootLayout() {
     Montserrat_200ExtraLight,
   })
 
-  const { login, logOut, isLoggedIn, verifyToken, isAuthLoading } = useAuth()
+  const { login, logOut, isLoggedIn, isAuthLoading } = useAuth()
 
   if (!fontLoaded || isAuthLoading) return <Loading />
 
@@ -39,7 +39,6 @@ export default function RootLayout() {
         login,
         logOut,
         isLoggedIn,
-        verifyToken,
         isAuthLoading,
       }}
     >

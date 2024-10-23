@@ -1,6 +1,6 @@
 export const PRIAMRY_COLOR = '#EAB308'
 
-export const API_BASE_URL = 'http://192.168.1.195:3000/api/'
+export const API_BASE_URL = 'https://quick-note.mohammadahmermalick.com/api/'
 
 export const TAILWIND = {
   inherit: 'inherit',

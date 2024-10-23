@@ -30,19 +30,12 @@ const call = async (
   }
 }
 
+const createNote = async (body: FormData) => call(`note`, 'POST', body)
+
 const loginRequest = async (formData: FormData) =>
   call('login', 'POST', formData)
 
 const logOutRequest = async () => call('logout', 'POST')
-
-const verifyTokenRequest = async (token: string = '') => {
-  const headers = {
-    'Content-type': 'application/json',
-    Authorization: `Bearer ${token || ''}`,
-  }
-
-  return call('verify-token', 'POST', JSON.stringify({ token }), headers)
-}
 
 const getNotesRequest = async () => {
   const token = await AsyncStorage.getItem('token')
@@ -83,10 +76,10 @@ const restoreNoteRequest = async (id: string) => {
 
 export {
   apiBaseUrl,
+  createNote,
   loginRequest,
   logOutRequest,
   getNotesRequest,
   restoreNoteRequest,
-  verifyTokenRequest,
   softDeleteNotesRequest,
 }
